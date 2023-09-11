@@ -1,58 +1,51 @@
 let minutes = 25;
 let seconds = 0;
-let timer;
+let timerInterval;
 
-// Function to change timer based on input
-function changeTimer(event) {
-  if (event.keyCode === 13) {  // Enter key
-    const str = event.target.value;
-    if (!isNaN(parseInt(str))) {
-      minutes = parseInt(str);
-      seconds = 0;
-      document.getElementById('timer').innerHTML = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    }
-  }
-}
-
-// Timer function
-function startTimer() {
-  timer = setInterval(function () {
+// Timer Logic
+document.getElementById('start-button').addEventListener('click', function() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(function() {
     if (seconds === 0) {
       if (minutes === 0) {
-        clearInterval(timer);
+        clearInterval(timerInterval);
         return;
-      } else {
-        minutes--;
-        seconds = 59;
       }
+      minutes--;
+      seconds = 59;
     } else {
       seconds--;
     }
-    
-    document.getElementById('timer').innerHTML = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    updateDisplay();
   }, 1000);
-}
-
-function pauseTimer() {
-    clearInterval(timer);
-}
-
-function reset() {
-    clearInterval(timer);
-    minutes = 25;
-    seconds = 0;
-    document.getElementById('timer').innerHTML = `25:00`;
-}
-
-// Attach event
-document.getElementById('start-button').addEventListener('click', function() {
-  clearInterval(timer);
-  startTimer();
 });
 
-document.getElementById('pause-button').addEventListener('click', pauseTimer);
+document.getElementById('pause-button').addEventListener('click', function() {
+  clearInterval(timerInterval);
+});
 
-document.getElementById('reset-button').addEventListener('click', reset);
+document.getElementById('reset-button').addEventListener('click', function() {
+  clearInterval(timerInterval);
+  minutes = 25;
+  seconds = 0;
+  updateDisplay();
+});
 
-// Attach event to capture "Enter" key press
-document.getElementById('timerInput').addEventListener('keypress', changeTimer);
+// Settings Logic
+document.getElementById('settings-button').addEventListener('click', function() {
+  const settingsTab = document.getElementById('settings-tab');
+  settingsTab.style.display = settingsTab.style.display === 'none' ? 'block' : 'none';
+});
+
+document.getElementById('apply-settings').addEventListener('click', function() {
+  minutes = parseInt(document.getElementById('settings-minutes').value, 10);
+  seconds = parseInt(document.getElementById('settings-seconds').value, 10);
+  updateDisplay();
+  document.getElementById('settings-tab').style.display = 'none';
+});
+
+// Update Display
+function updateDisplay() {
+  document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+  document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+}

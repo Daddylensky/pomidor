@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Pomodoro Timer</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Pomodoro Timer</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Pomodoro Timer</h1>
-        <div id="timer">
-            <span id="minutes">25</span>:<span id="seconds">00</span>
-        </div>
-        <div id="button-container">
-            <button class="start" id="start-button">Start</button>
-            <button id="pause-button">Stop</button>
-            <button id="reset-button">Reset</button>
-        </div>
+  <div id="container">
+    <h1 id="txt">Pomodoro Timer</h1>
+    <div id="timer">
+      <span class="time-element" id="minutes">25</span>:<span class="time-element" id="seconds">00</span>
     </div>
-    <script src="script.js"></script>
+    <div id="controls">
+      <button class="button" id="start-button">Start</button>
+      <button class="button" id="pause-button">Stop</button>
+      <button class="button" id="reset-button">Reset</button>
+    </div>
+    <!-- Settings Button and Tab -->
+    <button class="button settings-icon" id="settings-button">Settings</button>
+    <div id="settings-tab">
+      <label for="settings-minutes">Minutes:</label>
+      <input type="number" id="settings-minutes" min="0" max="60">
+      <label for="settings-seconds">Seconds:</label>
+      <input type="number" id="settings-seconds" min="0" max="59">
+      <button id="apply-settings">Apply</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>

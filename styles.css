@@ -1,16 +1,122 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
 #container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    height: 100vh; 
+    height: 100vh;
+}
+#controls {
+    margin-top: 20px;
+    height: 200px;
 }
 
-.timer {
+.time-element {
     font-size: 48px;
-    color: #333;
+    font-weight: 300;
+    color: #b94949;
+    margin-bottom: 20px;
 }
 
-.start {
-    color: green;
+.button {
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    background-color: #b94949;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 9px #999;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    box-shadow: 0px 6px #666;
+}
+
+.button:active {
+    box-shadow: 0px 2px #333;
+    transform: translateY(4px);
+}
+
+#txt {
+    font-size: 32px;
+    font-weight: 500;
+    color: #b94949;
+    margin-bottom: 20px;
+}
+
+.settings-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.custom-dropdown {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    font-size: 18px;
+}
+
+.current-value {
+    padding: 5px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.increment, .decrement {
+    padding: 5px 12px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+.increment:hover, .decrement:hover {
+    background-color: #f0f0f0;
+}
+
+.settings-panel-hidden {
+    display: none;
+    position: relative;
+    top: 50px;
+    right: 15px;
+    width: 175px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.settings-panel-visible {
+    display: block;
+}
+
+.settings-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 18px; 
+    padding: 8px 12px; 
+}
+
+#settings-tab {
+    position: absolute;
+    top: 50px;
+    right: 15px;
+    display: none;  
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
