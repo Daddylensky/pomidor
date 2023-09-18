@@ -1,13 +1,32 @@
-let minutes = 25;
-let seconds = 0;
-let timerInterval;
+document.addEventListener("DOMContentLoaded", function() {
+  let timerInterval;
+  let minutes;
+  let seconds;
+  let mySound = new Audio('audio.mp3');
 
-// Timer Logic
+  function setTime(newMinutes, newSeconds) {
+    minutes = newMinutes;
+    seconds = newSeconds;
+    updateDisplay();
+  }
+
+  function updateDisplay() {
+    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+  }
+
+
+function updateDisplay() {
+  document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+  document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+}
+
 document.getElementById('start-button').addEventListener('click', function() {
   clearInterval(timerInterval);
   timerInterval = setInterval(function() {
     if (seconds === 0) {
       if (minutes === 0) {
+        mySound.play().catch(error => console.log("Audio play failed:", error));
         clearInterval(timerInterval);
         return;
       }
@@ -20,32 +39,38 @@ document.getElementById('start-button').addEventListener('click', function() {
   }, 1000);
 });
 
+
+
 document.getElementById('pause-button').addEventListener('click', function() {
   clearInterval(timerInterval);
 });
 
 document.getElementById('reset-button').addEventListener('click', function() {
   clearInterval(timerInterval);
-  minutes = 25;
-  seconds = 0;
-  updateDisplay();
-});
-
-// Settings Logic
-document.getElementById('settings-button').addEventListener('click', function() {
-  const settingsTab = document.getElementById('settings-tab');
-  settingsTab.style.display = settingsTab.style.display === 'none' ? 'block' : 'none';
+  setTime(25, 0);
 });
 
 document.getElementById('apply-settings').addEventListener('click', function() {
-  minutes = parseInt(document.getElementById('settings-minutes').value, 10);
-  seconds = parseInt(document.getElementById('settings-seconds').value, 10);
-  updateDisplay();
-  document.getElementById('settings-tab').style.display = 'none';
+  let newMinutes = parseInt(document.getElementById('settings-minutes').value, 10) || 0;
+  let newSeconds = parseInt(document.getElementById('settings-seconds').value, 10) || 0;
+  if (newSeconds >= 60) {
+    let extraMinutes = Math.floor(newSeconds / 60);
+    newMinutes += extraMinutes;
+    newSeconds = newSeconds % 60;
+  }
+  setTime(newMinutes, newSeconds);
 });
 
-// Update Display
-function updateDisplay() {
-  document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-  document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-}
+
+document.getElementById('settings-button').addEventListener('click', function() {
+  const settingsTab = document.getElementById('settings-tab');
+  if (settingsTab.style.display === 'none' || settingsTab.style.display === '') {
+    settingsTab.style.display = 'block';
+  } else {
+    settingsTab.style.display = 'none';
+  }
+});
+
+
+setTime(25, 0);
+});
